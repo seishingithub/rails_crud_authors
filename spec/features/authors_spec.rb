@@ -32,4 +32,20 @@ feature 'User can CRUD authors' do
     expect(page).to have_content 'J.R.R. Tolkein'
     expect(page).to have_content 'The Hobbit'
   end
+
+  scenario 'User can delete authors from list' do
+    visit '/'
+    click_on 'Add Author'
+    fill_in 'Name', with: 'Jean Auel'
+    fill_in 'Title', with: 'The Clan of the Cave Bear'
+    click_on 'Create Author'
+    expect(page).to have_content 'Jean Auel'
+    expect(page).to have_content 'The Clan of the Cave Bear'
+    click_on 'Jean Auel'
+    expect(page).to have_content 'Jean Auel'
+    expect(page).to have_content 'The Clan of the Cave Bear'
+    click_on 'Delete Author'
+    expect(page).to have_no_content 'Jean Auel'
+    expect(page).to have_no_content 'The Clan of the Cave Bear'
+  end
 end
